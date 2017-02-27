@@ -1,0 +1,109 @@
+For a reference of the official style guide, see https://manual.cs50.net/style/
+For automated checking, using the 'style50' command
+
+Topics Covered:
+00) Code Ideals
+10) Module Headers
+20) Function Headers
+30) In-line Comments
+40) Code Formatting
+50) Variable declaration and naming
+    - See other document for Hungarian Notation paper
+
+
+Rules:
+00) Our ideals for code are distilled from Unix philosophy: http://www.faqs.org/docs/artu/ch01s06.html
+
+I boil it down to a simple set of facts about humans:
+
+    I am dumb.
+    You are dumb.
+    We are all dumb. 
+    
+    As smart as we think we are, the human brain was not designed for coding.
+    
+    Embrace your inner idiot.
+    Write code that plays nice with your dumbness.
+    
+    Don't tempt fate by making things clever & complicated.
+    Chain simple pieces together if you want to accomplish something more complicated.
+    Because of this, plan for pieces to play well together.
+
+
+10) Start the code file with a header of relevant information about the creator and purpose of the code
+
+/**  ----------------------------------------------------------------------------------------------------
+*   Description:    {Lorem Ipsum}  
+*   Purpose:        {Lorem Ipsum}  
+*   Author:         Joel Tannas
+*   Date:           MMM dd, 2016
+*   
+*   Licensing Info:
+*   None
+* ----------------------------------------------------------------------------------------------------- */
+
+#include <stdio.h>
+#include <cs50.h>
+
+
+
+
+20) For files with many functions, start functions with a header block of information relevant to the function
+
+int main (void)
+{
+    /*  -------------------------------------------------------------------------------------------------
+    *   Description:    {Lorem Ipsum}  
+    *   Purpose:        {Lorem Ipsum}  
+    *   Author:         Joel Tannas
+    *   Date:           MMM dd, 2016
+    *
+    *   Bugs, Limitations, and Other Notes:
+    *   - 
+    * ------------------------------------------------------------------------------------------------- */
+ 
+    //Do Stuff
+ }   
+    
+    
+    
+    
+30) Preceed Code Blocks with **short** in-line comments of what you're doing or why you designed it that way
+    Version 1: For most functions
+        // The following block of code does this
+        // Reasoning: Optional explanation of why you did something
+    Version 2: For unavoidably long and/or complicated functions where numbered 'chapters' are helpful 
+        // Block_ii0: The following section of code does this. Increment 10 between blocks to allow for insertions.
+    
+        
+        
+        
+40) Formatting Notes:
+    - When defining a function, include the return type on the same line
+    - Indentation of 4 spaces / 1 tab
+    - Indent the body of all functions (main, if/else statements, switch statements, etc...)
+    - single blank line between blocks of code
+    - line limit of 80 characters
+    
+    - Some single line conditions or loops do not require braces. My opinion: use them anyhow - it's safer during code changes.
+    - One space before opening parantheses and after closing parantheses (except for end-lines(;))
+    - No spaces after opening parantheses or before closing parantheses
+    - Curly braces get their own line at the same indentation as their calling function. e.g.
+    - Add spaces around equal signs and boolean operators
+    
+        if (var = True)
+        {
+            DoStuff();
+        }
+
+
+
+
+50) Variable Declaration & Names:
+    - Declare variables as close to their first usage as allowed. This keeps them
+        a) tightly scoped
+        b) within view for easy reference
+    - CS50: Separate words in variable names with underscores e.g. is_ready
+    - Personal Opinion: One variable declaration per line
+    - For pointers, place the start next to the variable (e.g. int *p;)
+    - For temporary loop counters, use i, j , and k if there is no compelling reason for others

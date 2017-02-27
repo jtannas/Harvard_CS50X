@@ -1,0 +1,83 @@
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Special Section: Hungarian Notation - The right & wrong ways of using it
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~    
+Hungarian notation is the practice of adding a prefix (or sometimes suffix) to the variable name to provide more information
+about the variable. There are two main versions of Hungarian notation:
+    - Systems Hungarian
+    - Apps Hungarian
+Systems Hungarian is a misunderstanding of Apps Hungarian because the original paper that described the notation used the 
+word 'type' instead of 'kind' and people didn't bother to actually read the rest of the paper. 
+
+
+Systems Hungarian prefixes variables name with a mnemonic of its type. e.g. string = str, double = dbl, etc...
+    
+    int Systems_Hungarian_Collision (Void)
+    {
+        int int_Ball_Direction = 60;
+        int int_Surface_Direction = 75;
+        
+        int int_Collision_Angle = int_Ball_Direction - int_Surface_Direction;
+        return int_Collision_Angle;
+    }
+
+This style of notation can be useful in languages without variable types or when working in an IDE that doesn't tell you 
+what type a variable is when mousing over it. For modern languages and IDEs, it's unnecessary and ugly.
+Keep your variables tightly scoped to their usage and you'll have no use for it.
+    
+    
+Apps Hungarian is what Hungarian Notation was designed to be and supposed to be. 
+It is the practice of preceeding or suffixing the variable name with a mnemonic of its *kind*. 
+The kind is not the type - it is deeper information about the the source and intended use of the variable.
+Some might call it a 'sub-type'. Let's look at the preceeding example, but revised to use Apps Hungarian:
+
+    int Apps_Hungarian_Collision (Void) 
+    {
+        // Convention: da_ = direction angle, ra_ = relative angle
+        
+        int da_Ball = 60;
+        int da_Surface = 75;
+        
+        int ra_Collision = da_Ball - da_Surface;
+        return ra_Collision;
+    }
+    
+In this example, all three variables are of the same type (int), but one is used very differently than the other two. Using a 
+relative angle to set a direction would be wrong, and using Apps Hungarian makes it *look* wrong. Apps Hungarian is useful for 
+these situations, where variables in a procedure are of the same type but very different sub-types.
+
+More examples include:
+    // ss_ = Safe String, us_ = Unsafe String
+    // coli_ = column index, cols_ = column span
+    // x_ = x-position, dx_ = difference in x (width)
+    // _mx = margin x, _ipx = internal padding x, _epx = external padding x, _bw = box width
+    
+These conventions should be explicitly defined at the function level.
+For a better explanation of Apps Hungarian, see http://www.joelonsoftware.com/articles/Wrong.html
+
+A caveat to Apps Hungarian: it is still a programmer level workaround for code error checking. It is much better to have the 
+compiler check for errors, since it is much more thorough and consistent. The way to accomplish this is through the use of custom
+type definitions. If you find yourself using the same Apps Hungarian prefixes repeatedly in your module or project, consider 
+creating a new type that explicitly defines the behaviours that you want. New functions that demand that custom type may be 
+needed for critical applications.
+
+For example, websites often take in inputs from users and write them to a database. The problem with this is that some users behave
+badly, inputting specially crafted code snippets where their information should be. This is a common way that websites are hacked.
+In order to guard against this, input from users should be 'sanitized' - specially encoded to make it harmless. A custom function
+for writing to the database that requires a 'SaniString' (Sanitized String) enforces these security measures.
+
+    int Update_Username_in_Database (int pKey, SaniString User_Name)
+    {
+        // Writes a username to the database. Demands a sanitized string to prevent SQL injection attacks
+        CurrentDB.RunSQL "UPDATE UserInfo SET UserInfo.UserName = " & User_Name & " WHERE UserInfo.pKey = " & pKey &";" 
+        return 0;
+    }
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+In summary:
+    1) Don't use Systems Hungarian
+    2) If your code has kinds (a.k.a. sub-types) with important distinctions...
+        a) If you have a single function with kinds, use Apps Hungarian
+        b) If you have multiple functions with kinds, explicitly define new types
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 

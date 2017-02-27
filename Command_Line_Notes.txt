@@ -1,0 +1,25 @@
+ls: list files in current 
+cd <directory>: change directory
+    . : The name of the current directory
+    .. : the name of the parent to the current directory
+    ~ : the home directory
+pwd: show the present working directory
+mkdir: Make a directory (folder)
+cp <source> <dest>: copy a file
+
+-r : recursive option
+-f: forcibly (without prompt for confirmation)
+cp -r <source> <dest>: copy an entire directory
+
+rm: remove (delete)
+rm -f: remove without warning
+rm -rf: remove everything without warning
+
+mv: cut/save as
+touch: create file
+
+> write to file
+>> append to file
+| pipe to command
+
+
